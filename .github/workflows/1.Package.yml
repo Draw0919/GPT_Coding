@@ -21,8 +21,8 @@ jobs:
           mkdir release
           cp LICENSE release/
           cp README.md release/
-          cp src/cfg_docker/dockerfile release/
-          cp src/scr_paperPassBox/boxInitialize.sh release/
+          cp Box_PaperPass/src/cfg_docker/dockerfile release/
+          cp Box_PaperPass/src/scr_paperPassBox/boxInitialize.sh release/
 
       # 打包檔案(2/2)-壓縮上傳
       - name: 打包檔案(2/2)-壓縮上傳
