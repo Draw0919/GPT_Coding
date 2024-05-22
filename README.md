@@ -66,3 +66,11 @@ Paper Pass Box
 ### 3.3.3. 模組發佈
 
 * 檢核後手動發佈
+# 3.本地端測試
+  1.docker build
+  ![image](https://github.com/Draw0919/GPT_Coding/assets/102810421/2482e07b-cdc6-406a-82ad-16c0f651ffc3)
+  2.ssh 連線
+  ![image](https://github.com/Draw0919/GPT_Coding/assets/102810421/bbac9880-dd50-4c50-9a60-d0855e87353d)
+  3.pytest 測試
+  ![image](https://github.com/Draw0919/GPT_Coding/assets/102810421/f3f94ab6-5ddc-42b1-8e2a-a4cc14647988)
+
