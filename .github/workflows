@@ -1,0 +1,53 @@
+# 此 GitHub Actions 工作流程的功能為將指定檔案複製到工作資料夾，並將這些檔案打包成 ZIP 檔，然後上傳至新的預發佈。
+# 使用說明: 
+# 1. 將本檔案另存成 .github/workflows/1.Package.yml 置於您的專案根目錄。
+# 2. 當推送至 main 分支後，此工作流程將自動執行。
+
+name: 1.Package
+
+on:
+  push:
+    branches:
+      - main  # 可根據需要調整觸發條件和分支 
+
+jobs:
+  Package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 檢出代碼
+        uses: actions/checkout@v2
+
+      - name: 建立打包目錄
+        run: mkdir -p package
+
+      - name: 複製檔案到打包目錄
+        run: |
+          cp source/Scr_SimpleDemoBox/SimpleDemoBox.sh package/SimpleDemoBox.sh
+          cp source/Cfg_Docker/dockerfile package/dockerfile
+          cp README.md package/README.md
+
+      - name: 打包檔案
+        run: zip -r package.zip package/
+
+      - name: 創建發布版
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: 'v${{ github.run_number }}'
+          release_name: 'Release v${{ github.run_number }}'
+          draft: false
+          prerelease: true
+        # 創建發布版，但不上傳檔案
+
+      - name: 上傳發布檔案
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./package.zip
+          asset_name: package.zip
+          asset_content_type: application/zip
+        # 使用上傳發布檔案功能，將打包好的檔案上傳至創建的發布版
