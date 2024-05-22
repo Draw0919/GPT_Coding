@@ -24,9 +24,9 @@ jobs:
 
       - name: Copy files to the packaging directory
         run: |
-          cp source/Scr_SimpleDemoBox/SimpleDemoBox.sh package/SimpleDemoBox.sh
-          cp source/Cfg_Docker/dockerfile package/dockerfile
-          cp README.md package/README.md
+          cp Box_PaperPass/src/scr_paperPassBox_test/scr_paperPassBox_test.py
+          cp Box_PaperPass/src/cfg_docker/dockerfile
+          cp README.md
         # Copies specified files from your repository to the 'package' directory
 
       - name: Package files
