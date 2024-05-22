@@ -6,8 +6,8 @@ Paper Pass Box
   ![Docker使用](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)
   ![Python使用](https://img.shields.io/badge/Python-14354C.svg?logo=python&logoColor=white&style=for-the-badge)
 * Development:
-  ![版權宣告](https://img.shields.io/github/license/Draw0919/Box_PaperPass?style=for-the-badge)
-  ![GitHub repo size](https://img.shields.io/github/repo-size/Draw0919/Box_PaperPass?style=for-the-badge)
+  ![版權宣告](https://img.shields.io/github/license/Draw0919/GPT_Coding?style=for-the-badge)
+  ![GitHub repo size](https://img.shields.io/github/repo-size/Draw0919/GPT_Coding?style=for-the-badge)
   
   ![GitHub Tag](https://img.shields.io/github/v/tag/Draw0919/GPT_Coding?style=for-the-badge)
   ![釋出版本](https://img.shields.io/github/v/release/Draw0919/GPT_Coding?style=for-the-badge)
