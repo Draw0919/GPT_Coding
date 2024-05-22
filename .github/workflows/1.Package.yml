@@ -48,7 +48,7 @@ jobs:
       # 執行Pytest測試(2/3)-安裝pipenv並復原虛擬環境
       - name: 執行Pytest測試(2/3)-安裝pipenv並復原虛擬環境
         run: |
-          cp -R src/scr_paperPassBox_test test
+          cp -R Box_PaperPass/src/scr_paperPassBox_test test
           cd test
           pip install pipenv
           pipenv install --deploy --ignore-pipfile          
