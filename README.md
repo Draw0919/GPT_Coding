@@ -6,9 +6,9 @@ Paper Pass Box
   ![Docker使用](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)
   ![Python使用](https://img.shields.io/badge/Python-14354C.svg?logo=python&logoColor=white&style=for-the-badge)
 * Development:
-  ![版權宣告](https://img.shields.io/github/license/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
-  [![可維護度](https://api.codeclimate.com/v1/badges/da0c547d8c6236d10e0e/maintainability)](https://codeclimate.com/github/TwMoonBear-Arsenal/Box_PaperPass/maintainability?style=for-the-badge)
-  ![GitHub repo size](https://img.shields.io/github/repo-size/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
+  ![版權宣告](https://img.shields.io/github/license/Draw0919/Box_PaperPass?style=for-the-badge)
+  ![GitHub repo size](https://img.shields.io/github/repo-size/Draw0919/Box_PaperPass?style=for-the-badge)
+  
   ![GitHub Tag](https://img.shields.io/github/v/tag/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
   ![釋出版本](https://img.shields.io/github/v/release/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
   ![釋出日期](https://img.shields.io/github/release-date/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
