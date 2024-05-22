@@ -1,57 +1,60 @@
-# This GitHub Actions workflow is designed to copy specified files into a work directory, package them into a ZIP file, and upload this package to a new pre-release.
-# Instructions:
-# 1. Save this file as .github/workflows/Package.yml in the root directory of your project.
-# 2. This workflow will automatically execute when a push to the main branch occurs.
+# 此 GitHub Workflow 的功能是將指定文件複製到名為 release 的文件夾中，然後使用這些文件來構建和運行 Docker 容器，並進行測試。使用說明：
+# 1. 將此文件保存為 .github/workflows/moduleTest.yml。
+# 2. 當推送到 main 分支或 pull request 事件發生時，此工作流程將自動執行。
 
-name: 1.Package
+name: moduleTest
 
-on:
-  push:
-    branches:
-      - main  # Adjust this as needed to trigger on different branches
+on: [push]
 
 jobs:
-  Package:
+  build_and_test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Check out code
+      # 取出代碼
+      - name: 取出代碼
         uses: actions/checkout@v2
-        # Checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
 
-      - name: Create packaging directory
-        run: mkdir -p package
-        # Creates a directory called 'package' where files will be copied to and zipped
-
-      - name: Copy files to the packaging directory
+      # 打包文件(1/2)-蒐整檔案
+      - name: 打包文件(1/2)-蒐整檔案
         run: |
-          cp Box_PaperPass/src/scr_paperPassBox_test/scr_paperPassBox_test.py
-          cp Box_PaperPass/src/cfg_docker/dockerfile
-          cp README.md
-        # Copies specified files from your repository to the 'package' directory
+          mkdir release
+          cp LICENSE release/
+          cp README.md release/
+          cp src/cfg_docker/dockerfile release/
+          cp src/scr_paperPassBox/boxInitialize.sh release/
 
-      - name: Package files
-        run: zip -r package.zip package/
-        # Packages the contents of the 'package' directory into a ZIP file named 'package.zip'
-
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 打包檔案(2/2)-壓縮上傳
+      - name: 打包檔案(2/2)-壓縮上傳
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: 'v${{ github.run_number }}'
-          release_name: 'Release v${{ github.run_number }}'
-          draft: false
-          prerelease: true
-        # Creates a new release on GitHub, marking it as a pre-release
+          name: release
+          path: release
 
-      - name: Upload release asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 準備Docker受測容器
+      - name: 準備Docker受測容器
+        run: |
+          cp -r ./release ./deployment
+          cd deployment
+          docker build -t myapp:latest .
+          docker run -d -p 2222:22 --name myapp_container myapp:latest
+
+      # 執行Pytest測試個案(1/3)-安裝Python(須配合pipenv版本)
+      - name: 執行Pytest測試個案(1/3)-安裝Python(須配合pipenv版本)
+        uses: actions/setup-python@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./package.zip
-          asset_name: package.zip
-          asset_content_type: application/zip
-        # Uploads the packaged ZIP file to the newly created pre-release
+          python-version: '3.10.10'
+
+      # 執行Pytest測試(2/3)-安裝pipenv並復原虛擬環境
+      - name: 執行Pytest測試(2/3)-安裝pipenv並復原虛擬環境
+        run: |
+          cp -R src/scr_paperPassBox_test test
+          cd test
+          pip install pipenv
+          pipenv install --deploy --ignore-pipfile          
+
+      # 執行Pytest測試(3/3)-執行Pytest測試
+      - name: 執行Pytest測試(3/3)-執行Pytest測試
+        run: |
+          cd test
+          pipenv run pytest
