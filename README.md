@@ -9,9 +9,9 @@ Paper Pass Box
   ![版權宣告](https://img.shields.io/github/license/Draw0919/Box_PaperPass?style=for-the-badge)
   ![GitHub repo size](https://img.shields.io/github/repo-size/Draw0919/Box_PaperPass?style=for-the-badge)
   
-  ![GitHub Tag](https://img.shields.io/github/v/tag/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
-  ![釋出版本](https://img.shields.io/github/v/release/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
-  ![釋出日期](https://img.shields.io/github/release-date/TwMoonBear-Arsenal/Box_PaperPass?style=for-the-badge)
+  ![GitHub Tag](https://img.shields.io/github/v/tag/Draw0919/GPT_Coding?style=for-the-badge)
+  ![釋出版本](https://img.shields.io/github/v/release/Draw0919/GPT_Coding?style=for-the-badge)
+  ![釋出日期](https://img.shields.io/github/release-date/Draw0919/GPT_Coding?style=for-the-badge)
 # 1. 功能簡介
 
 * 提供一組Docker相關腳本，運行腳本後可建立簡單紅隊靶機，作為示範教學使用。
