@@ -1,35 +1,39 @@
-# 此 GitHub Actions 工作流程的功能為將指定檔案複製到工作資料夾，並將這些檔案打包成 ZIP 檔，然後上傳至新的預發佈。
-# 使用說明: 
-# 1. 將本檔案另存成 .github/workflows/1.Package.yml 置於您的專案根目錄。
-# 2. 當推送至 main 分支後，此工作流程將自動執行。
+# This GitHub Actions workflow is designed to copy specified files into a work directory, package them into a ZIP file, and upload this package to a new pre-release.
+# Instructions:
+# 1. Save this file as .github/workflows/Package.yml in the root directory of your project.
+# 2. This workflow will automatically execute when a push to the main branch occurs.
 
 name: 1.Package
 
 on:
   push:
     branches:
-      - main  # 可根據需要調整觸發條件和分支 
+      - main  # Adjust this as needed to trigger on different branches
 
 jobs:
   Package:
     runs-on: ubuntu-latest
     steps:
-      - name: 檢出代碼
+      - name: Check out code
         uses: actions/checkout@v2
+        # Checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
 
-      - name: 建立打包目錄
+      - name: Create packaging directory
         run: mkdir -p package
+        # Creates a directory called 'package' where files will be copied to and zipped
 
-      - name: 複製檔案到打包目錄
+      - name: Copy files to the packaging directory
         run: |
           cp source/Scr_SimpleDemoBox/SimpleDemoBox.sh package/SimpleDemoBox.sh
           cp source/Cfg_Docker/dockerfile package/dockerfile
           cp README.md package/README.md
+        # Copies specified files from your repository to the 'package' directory
 
-      - name: 打包檔案
+      - name: Package files
         run: zip -r package.zip package/
+        # Packages the contents of the 'package' directory into a ZIP file named 'package.zip'
 
-      - name: 創建發布版
+      - name: Create release
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -39,9 +43,9 @@ jobs:
           release_name: 'Release v${{ github.run_number }}'
           draft: false
           prerelease: true
-        # 創建發布版，但不上傳檔案
+        # Creates a new release on GitHub, marking it as a pre-release
 
-      - name: 上傳發布檔案
+      - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,4 +54,4 @@ jobs:
           asset_path: ./package.zip
           asset_name: package.zip
           asset_content_type: application/zip
-        # 使用上傳發布檔案功能，將打包好的檔案上傳至創建的發布版
+        # Uploads the packaged ZIP file to the newly created pre-release
